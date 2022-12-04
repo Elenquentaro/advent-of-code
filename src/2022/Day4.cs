@@ -20,15 +20,11 @@ namespace advent_of_code.y2022 {
         }
 
         static bool Contains((Range first, Range second) ranges) {
-            bool e1 = ranges.first.Contains(ranges.second);
-            bool e2 = ranges.second.Contains(ranges.first);
-            return e1 || e2;
+            return ranges.first.Contains(ranges.second) || ranges.second.Contains(ranges.first);
         }
 
         static bool Overlaps((Range first, Range second) ranges) {
-            bool e1 = ranges.first.Overlaps(ranges.second);
-            bool e2 = ranges.second.Overlaps(ranges.first);
-            return e1 || e2;
+            return ranges.first.Overlaps(ranges.second);
         }
 
         struct Range {

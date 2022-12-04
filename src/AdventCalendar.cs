@@ -3,7 +3,7 @@
 namespace advent_of_code {
     internal static class AdventCalendar {
         public static AdventDay GetCurrentDay() {
-            return new Day2();
+            return new Day3();
         }
 
         public static string GetDefaultPathForDay(AdventDay day) {

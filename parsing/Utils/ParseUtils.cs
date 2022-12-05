@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace advent_of_code.Parsing.Utils {
-    internal static class ParseUtils {
+﻿namespace Parsing.Utils {
+    public static class ParseUtils {
         public static IEnumerable<(string first, string second)> IteratePairs(string[] inputLines, char splitChar) {
             return inputLines.Select(line => SplitToPair(line, splitChar));
         }

@@ -1,5 +1,5 @@
-﻿using advent_of_code.Parsing;
-using advent_of_code.Parsing.Utils;
+﻿using Parsing;
+using Parsing.Utils;
 
 namespace advent_of_code.y2022 {
     class Day4 : AdventDay {

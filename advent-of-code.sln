@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "advent-of-code", "src\advent-of-code.csproj", "{77E1B583-3313-4FAC-83B3-A1E2D65BE63F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "advent-of-code", "src\advent-of-code.csproj", "{77E1B583-3313-4FAC-83B3-A1E2D65BE63F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "parsing", "parsing\parsing.csproj", "{C59B37A8-032C-44CE-9608-659EFD29AF0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{77E1B583-3313-4FAC-83B3-A1E2D65BE63F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77E1B583-3313-4FAC-83B3-A1E2D65BE63F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77E1B583-3313-4FAC-83B3-A1E2D65BE63F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C59B37A8-032C-44CE-9608-659EFD29AF0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C59B37A8-032C-44CE-9608-659EFD29AF0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C59B37A8-032C-44CE-9608-659EFD29AF0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C59B37A8-032C-44CE-9608-659EFD29AF0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

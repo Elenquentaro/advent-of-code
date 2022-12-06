@@ -79,9 +79,11 @@
 
         // in current task conditions (and input content) any way is acceptable
         public static bool IsNumber(string line) {
+#pragma warning disable CS0162 // Unreachable code detected
             return line.Any(char.IsDigit); // why not
             return int.TryParse(line, out _); // most reliable way
             return !string.IsNullOrWhiteSpace(line); // straight way
+#pragma warning restore CS0162 // Unreachable code detected
         }
 
         public readonly struct BunchInfo {

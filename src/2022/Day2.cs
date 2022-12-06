@@ -2,8 +2,6 @@
 
 namespace advent_of_code.y2022 {
     class Day2 : AdventDay {
-        public override int DayNumber => 2;
-
         public override void SolvePart1(string[] inputLines) {
             int totalScore = 0;
             int errors = 0;

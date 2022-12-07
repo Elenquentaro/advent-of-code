@@ -1,4 +1,5 @@
-﻿using Stack = System.Collections.Generic.Stack<string>;
+﻿using static Parsing.StringReading.WordReader;
+using Stack = System.Collections.Generic.Stack<string>;
 
 namespace advent_of_code.y2022 {
     class Day5 : AdventDay {
@@ -74,40 +75,6 @@ namespace advent_of_code.y2022 {
             }
             return result;
         }
-
-        #region Extended StringReader
-        static ReadOnlySpan<char> ReadNextWord(string line, ref int readPosition) {
-            int startPosition = readPosition;
-            var emptyIdx = line.IndexOf(' ', startPosition);
-            int length = emptyIdx;
-            int readOffset = 0;
-            if (emptyIdx > -1) {
-                readOffset++;
-            } else {
-                length = line.Length;
-            }
-            length -= startPosition;
-            readPosition = startPosition + length + readOffset;
-            return line.AsSpan(startPosition, length);
-        }
-
-        static int ReadNextNumber(string line, ref int readPosition) {
-            int result = 0;
-            bool success = false;
-            while (!success && readPosition < line.Length) {
-                var span = ReadNextWord(line, ref readPosition);
-                success = int.TryParse(span, (System.Globalization.NumberStyles)3, null, out result);
-            }
-            return result;
-        }
-
-        static IEnumerable<int> ReadNumbers(string line) {
-            int readPos = 0;
-            while (readPos < line.Length) {
-                yield return ReadNextNumber(line, ref readPos);
-            }
-        }
-        #endregion Extended StringReader
 
         static IEnumerable<T> PopRange<T>(Stack<T> stack, int count) {
             for (int i = 0; i < count && stack.TryPop(out var elem); i++) {

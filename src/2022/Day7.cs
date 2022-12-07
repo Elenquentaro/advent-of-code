@@ -3,10 +3,6 @@ using Parsing.StringReading;
 
 namespace advent_of_code.y2022 {
     class Day7 : AdventDay {
-        const string TOKEN_CD = "$ cd ";
-        const string TOKEN_LS = "$ ls";
-        const string TOKEN_DIR = "dir ";
-
         public override void SolvePart1(string[] inputLines) {
             var treeReader = CreateTreeReader(inputLines);
 

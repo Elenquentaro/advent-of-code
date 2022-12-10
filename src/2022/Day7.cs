@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 using Parsing.StringReading;
 
 namespace advent_of_code.y2022 {
@@ -45,8 +46,6 @@ namespace advent_of_code.y2022 {
 
             allDirs.Sort((x, y) => x.ComputeSize().CompareTo(y.ComputeSize()));
 
-            Console.WriteLine();
-            LogTree(allDirs);
             Console.WriteLine("better delete folder {0}", allDirs.First());
         }
 
@@ -150,10 +149,26 @@ namespace advent_of_code.y2022 {
                 return result;
             }
 
+            private IFileTreeNode GetCurrentNode() {
+                return _currentPath.TryPeek(out var result)
+                    ? result : _root;
+            }
+
             public IEnumerable<IFileTreeEntry> EnumerateEntries() {
-                var enumerator = new TreeEnumerator(_root);
-                while (enumerator.MoveNext() && enumerator.Current != null) {
-                    yield return enumerator.Current;
+                return EnumerateNodes(_root);
+            }
+
+            // more human readable
+            public static IEnumerable<IFileTreeEntry> EnumerateRecursive(IFileTreeNode root, int depth = 0) {
+                yield return root;
+                foreach (var child in root.Children) {
+                    if (child is IFileTreeNode asNode) {
+                        foreach (var subchild in EnumerateRecursive(asNode, depth + 1)) {
+                            yield return subchild;
+                        }
+                    } else {
+                        yield return child;
+                    }
                 }
             }
 
@@ -164,11 +179,7 @@ namespace advent_of_code.y2022 {
                 }
             }
 
-            private IFileTreeNode GetCurrentNode() {
-                return _currentPath.TryPeek(out var result)
-                    ? result : _root;
-            }
-
+            // way without recursion
             public struct TreeEnumerator {
                 private readonly IFileTreeNode _rootNode;
                 private readonly Stack<IFileTreeNode> _path;
@@ -191,22 +202,20 @@ namespace advent_of_code.y2022 {
                         // not started
                         Current = _rootNode;
                     } else if (Current is IFileTreeNode asNode && asNode.Children.Count > 0) {
-                        // current element is node, move down
+                        // current element is node with children, move down
                         if (asNode != _rootNode) _path.Push(asNode);
                         Current = asNode.Children[0];
-                    } else if (!currentNode.IsLastChild(Current)) {
+                    } else if (currentNode.IsLastChild(Current) is not true) {
                         // continue visiting a node children
                         Current = currentNode.Children[currentNode.IndexOf(Current) + 1];
                     } else {
-                        // visited all node elements
+                        // we visited all node elements
                         // move up til meet a node with unvisited children
                         IFileTreeNode? prevNode = null;
                         bool canceled = false;
                         while (!canceled && _path.TryPop(out prevNode)) {
                             currentNode = GetCurrentNode();
-                            if (prevNode.Metadata.parentIndex + 1 < currentNode.Children.Count) {
-                                canceled = true;
-                            }
+                            canceled = !currentNode.IsLastChild(prevNode);
                         }
 
                         // in case of root
@@ -214,7 +223,7 @@ namespace advent_of_code.y2022 {
 
                         if (prevNode != null && prevNode != currentNode) {
                             // found an unvisited node
-                            Current = currentNode.Children[prevNode.Metadata.parentIndex + 1];
+                            Current = currentNode.Children[currentNode.IndexOf(prevNode) + 1];
                         } else {
                             // we're visit all root children
                             _ended = true;

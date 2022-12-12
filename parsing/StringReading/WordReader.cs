@@ -83,12 +83,18 @@ namespace Parsing.StringReading {
         }
 
         // rude way
+        public static int ReadNextNumber(string line) {
+            var readPos = 0;
+            return ReadNextNumber(line, ref readPos);
+        }
+
+        // rude way
         public static int ReadNextNumber(string line, ref int readPosition) {
             int result = 0;
             bool success = false;
             while (!success && readPosition < line.Length) {
                 var span = ReadNextWord(line, ref readPosition);
-                success = int.TryParse(span, (System.Globalization.NumberStyles)3, null, out result);
+                success = int.TryParse(span, NumberStyles.Any, null, out result);
             }
             return result;
         }
